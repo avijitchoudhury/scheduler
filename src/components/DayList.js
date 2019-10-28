@@ -1,5 +1,5 @@
 import React from "react";
-import classnames from "classnames";
+// import classnames from "classnames";
 import DayListItem from "components/DayListItem";
 
 export default function DayList (props) {
