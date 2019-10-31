@@ -29,3 +29,16 @@ export function getAppointmentsForDay(state, day) {
     }
     return obj;
   }
+
+  export function getInterviewersForDay(state, day) {
+    const filteredAppointments = state.days.filter(aday => aday.name === day);
+    const result = [];
+    if (filteredAppointments[0]) {
+      filteredAppointments[0].interviewers.forEach(appointment => {
+        if (state.interviewers[appointment]) {
+          result.push(state.interviewers[appointment])
+        }
+      })
+    }
+    return result;
+  }
