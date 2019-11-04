@@ -1,0 +1,29 @@
+//describe() <--- describes what component we will be testing. 
+// test() .. test.skip()
+// it() .. <--- xit()
+// both test and it are the same and only use one
+//will need to import prettyDOM and firevent
+// waitForElement
+// getByText
+
+describe('Testing Items Components' ,() => {
+  it('Actually renders on the screen!!!!', () => {
+    render(<Component/>)
+  })
+  it('To have 2 children inside of it', () => {
+    const{ container } = render(<Component item="learn react testing" done={false}/>)
+    expect(container.firstChild.children.length.toBe(2))
+  })
+  it('has a item with text to say 'Buy apples'', () => {
+    console.log(prettyDOM(container))container, getByText } = render(<component item="Buy apples" dibe-{false}/>)
+    const {}
+    expect(getByText("Buy Apples));
+  })
+  it('checkmarks to true when clicked on the checkbox', () => {
+    const done=false;
+    const { container, getByText } = render(<Component item="buy apples" done={done} toggleDone={() => done = true})
+    fireEvent.click(container.firtsChild.children[0])
+    console.log(done)
+    expect(done).toBe(true);
+  })
+})
