@@ -4,7 +4,7 @@ Interview Scheduler is a web application that is built using React which allows 
 
 ## Final Product
 
-!["screenshot of Landing page"](https://github.com/avijitchoudhury/tweeter-app/blob/master/docs/Landing-page.png?raw=true)
+!["screenshot of Landing page"](https://github.com/avijitchoudhury/scheduler/blob/master/Docs/Landing-page.png?raw=true)
 
 !["screenshot of Deleting appointment"](https://github.com/avijitchoudhury/scheduler/blob/master/Docs/Interview-delete.png?raw=true)
 
