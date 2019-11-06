@@ -23,7 +23,7 @@ export default function useApplicationData(props) {
           ...state.appointments, [action.id]:appointment
         }
         return {
-          ...state, appointments
+          ...state, appointments, days: action.days
         }
       }
       default:
@@ -42,35 +42,40 @@ export default function useApplicationData(props) {
 
   const setDay = day => dispatch({ type: SET_DAY, day });
 
-  function bookInterview(id, interview) {
+  const checkDay = (id) => {
+    let dayID = null;
+    for (const obj of state.days) {
+      if (obj.appointments.includes(id)) {
+        dayID = obj.id;
+      }
+    }
+    return dayID;
+  }
+
+
+  function bookInterview(id, interview, changeSpots = false) {
+    
+    const days = state.days.map(day => {
+      return (changeSpots ? day.id === checkDay(id) ? { ...day, spots: day.spots - 1 } : { ...day } : { ...day })
+    });
+
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
         dispatch({
-          type: SET_INTERVIEW, id, interview
+          type: SET_INTERVIEW, id, interview, days
         });
-        Promise.all([
-          axios.get("/api/days"),
-          axios.get("/api/appointments"),
-          axios.get("/api/interviewers")
-        ])
-          .then(all => dispatch({ type: SET_APPLICATION_DATA, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }))
-
       })
   }
 
   function cancelInterview(id) {
+    const days = state.days.map(day => {
+      return (day.id === checkDay(id) ? { ...day, spots: day.spots + 1 } : { ...day })
+    });
     return axios.delete(`/api/appointments/${id}`)
       .then(() => {
         dispatch({
-          type: SET_INTERVIEW, interview: null
+          type: SET_INTERVIEW, interview: null, days
         })
-        Promise.all([
-          axios.get("/api/days"),
-          axios.get("/api/appointments"),
-          axios.get("/api/interviewers")
-        ])
-          .then(all => dispatch({ type: SET_APPLICATION_DATA, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }))
-
       })
   }
 
