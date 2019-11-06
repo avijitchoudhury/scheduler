@@ -1,7 +1,5 @@
 import React from "react";
-
 import "components/Button.scss";
-import { storiesOf } from "@storybook/react";
 import classnames from "classnames";
 
 export default function Button(props) {
